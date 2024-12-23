@@ -9,14 +9,14 @@ class Declarer
 {
     protected ConnectionManage $connectionManage;
 
-    /** @var string[][] 定义的交换器集合 */
+    /** @var string[][] определенный набор переключателей */
     protected array $exchanges = [];
 
-    /** @var string[][] 定义的队列集合 */
+    /** @var string[][] Определена коллекция очередей */
     protected array $queues = [];
 
     /**
-     * @var array[] 定义的绑定关系
+     * @var array[] определяет отношение привязки
      * @example [[Exchange::class, Queue::class, ['routing_key1', 'routing_key2']]
      */
     protected array $binds = [];

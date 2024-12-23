@@ -2,10 +2,8 @@
 
 namespace Xbyter\Amqp\Examples\DefaultConn\Consumers;
 
-
 use Xbyter\Amqp\Examples\DefaultConn\BaseDefaultConsumerMessage;
 use Xbyter\Amqp\Enum\ConsumeResultEnum;
-
 
 class DemoConsumer extends BaseDefaultConsumerMessage
 {

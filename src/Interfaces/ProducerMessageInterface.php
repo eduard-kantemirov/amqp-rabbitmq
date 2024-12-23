@@ -5,14 +5,14 @@ namespace Xbyter\Amqp\Interfaces;;
 interface ProducerMessageInterface extends MessageInterface
 {
     /**
-     * 获得原始数据
+     * Получить данные
      * @return array
      */
     public function getData(): array;
 
 
     /**
-     * 获取序列化之后的请求体
+     * Получить сериализованное тело запроса
      * @return string
      */
     public function getBody(): string;

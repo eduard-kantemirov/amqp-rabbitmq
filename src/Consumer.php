@@ -18,7 +18,7 @@ class Consumer
 
 
     /**
-     * 消费消息
+     * Новости потребления
      *
      * @param \Xbyter\Amqp\Interfaces\ConsumerMessageInterface $consumerMessage
      * @return void

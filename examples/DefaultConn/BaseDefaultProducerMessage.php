@@ -7,6 +7,6 @@ use Xbyter\Amqp\BaseProducerMessage;
 
 abstract class BaseDefaultProducerMessage extends BaseProducerMessage
 {
-    /** @var string 所属连接 */
+    /** @var string Связь */
     protected string $conn = 'default';
 }

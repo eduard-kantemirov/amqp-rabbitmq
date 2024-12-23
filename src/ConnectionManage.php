@@ -4,7 +4,7 @@ namespace Xbyter\Amqp;
 
 class ConnectionManage
 {
-    /** @var \Xbyter\Amqp\Connection[] AMQP连接器集合 */
+    /** @var \Xbyter\Amqp\Connection[] Коллекция коннекторов AMQP */
     private array $connections = [];
 
 

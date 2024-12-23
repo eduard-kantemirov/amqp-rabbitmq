@@ -4,9 +4,9 @@ namespace Xbyter\Amqp\Enum;
 
 class DeliveryModeEnum
 {
-    /** @var int 内存 */
+    /** @var int память */
     public const MEMORY = 1;
 
-    /** @var int 持久化 */
+    /** @var int сохранение */
     public const PERSISTENT = 2;
 }

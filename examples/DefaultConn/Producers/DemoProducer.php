@@ -7,7 +7,7 @@ use Xbyter\Amqp\Examples\DefaultConn\BaseDefaultProducerMessage;
 
 class DemoProducer extends BaseDefaultProducerMessage
 {
-    /** @var string 所属交换机 */
+    /** @var string Выключатель */
     public const EXCHANGE = 'demo.topic';
 
     public const ROUTING_KEY = 'demo.order.shipped';

@@ -5,7 +5,7 @@ namespace Xbyter\Amqp\Interfaces;
 interface MessageInterface
 {
     /**
-     * 获取连接器
+     * Получить подключенние
      * @return string
      */
     /**

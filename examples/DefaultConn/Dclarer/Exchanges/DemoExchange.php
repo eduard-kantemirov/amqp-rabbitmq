@@ -10,6 +10,6 @@ class DemoExchange extends ExchangeDeclarer
 {
     protected string $type = ExchangeTypeEnum::TOPIC;
 
-    /** @var string 所属交换机 */
+    /** @var string Выключатель */
     public const EXCHANGE = 'demo.topic';
 }

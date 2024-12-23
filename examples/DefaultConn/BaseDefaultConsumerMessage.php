@@ -8,11 +8,12 @@ use Xbyter\Amqp\Enum\ConsumeResultEnum;
 
 abstract class BaseDefaultConsumerMessage extends BaseConsumerMessage
 {
-    /** @var string 所属连接 */
+    /** @var string Связь */
     protected string $conn = 'default';
 
     protected array $qos = [
-        //消息预取数量,越高性能越好但可能导致消息积压到一个进程里导致其他进程空着
+        //Количество сообщений для предварительной выборки. Чем больше число, тем выше производительность,
+        // но это может привести к тому, что сообщения будут накапливаться в одном процессе, оставляя другие процессы пустыми.
         'prefetch_count' => 10,
         'prefetch_size'  => null,
         'global'         => false,

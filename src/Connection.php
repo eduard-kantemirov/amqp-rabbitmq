@@ -19,7 +19,7 @@ class Connection
 
     public function __construct(ConnectionConfig $config)
     {
-        //使用懒加载，不在构造函数里连接RabbitMQ
+        // Используйте ленивую загрузку и не подключайтесь к RabbitMQ в конструкторе
         $this->connection = new AMQPLazyConnection(
             $config->host,
             $config->port,

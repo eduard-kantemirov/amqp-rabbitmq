@@ -16,7 +16,7 @@ class Producer
     }
 
     /**
-     * 发布消息
+     * Опубликовать сообщение
      *
      * @param \Xbyter\Amqp\Interfaces\ProducerMessageInterface $producerMessage
      * @param bool $confirm 确认模式可以保证消息是否达到Broker端

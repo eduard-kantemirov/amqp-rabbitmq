@@ -13,7 +13,8 @@ abstract class BaseConsumerMessage extends BaseMessage implements ConsumerMessag
     public const QUEUE = '';
 
     protected array $qos = [
-        //消息预取数量,越高性能越好但可能导致消息积压到一个进程里导致其他进程空着
+        // Количество сообщений для предварительной выборки. Чем больше число, тем выше производительность,
+        // но это может привести к накоплению сообщений в одном процессе, оставляя другие процессы пустыми.
         'prefetch_count' => 1,
         'prefetch_size'  => null,
         'global'         => false,
@@ -44,7 +45,7 @@ abstract class BaseConsumerMessage extends BaseMessage implements ConsumerMessag
 
 
     /**
-     * 反序列化数据
+     * Десериализация данных
      * @param string $body
      * @return mixed
      */

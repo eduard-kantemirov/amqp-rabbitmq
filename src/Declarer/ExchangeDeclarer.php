@@ -4,7 +4,7 @@ namespace Xbyter\Amqp\Declarer;
 
 class ExchangeDeclarer extends BaseDeclarer
 {
-    /** @var string 所属交换机 */
+    /** @var string Выключатель */
     public const EXCHANGE = '';
 
     protected string $type;

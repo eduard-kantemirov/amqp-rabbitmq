@@ -8,13 +8,13 @@ class ConsumerServer
 
     private Consumer $consumer;
 
-    /** @var int 最大内存(MB), 超过后, 待任务完成后会自动重启队列 */
+    /** @var int Максимальный объем памяти (МБ). При превышении этого значения очередь будет автоматически перезапущена после завершения задачи */
     private int $maxMemory = 512;
 
-    /** @var int 当没有任务执行时的睡眠时间 */
+    /** @var int sleep time, когда ни одна задача не выполняется */
     private int $sleep = 3;
 
-    /** @var bool 是否需要退出, 如果用kill杀死的则等当前任务执行完后再平滑退出 */
+    /** @var bool Выходить ли. Если задача завершена, плавно выйти после завершения текущей задачи. */
     private bool $shouldQuit = false;
 
 
@@ -25,12 +25,12 @@ class ConsumerServer
 
     public function run(array $consumerMessageClasses)
     {
-        //监听进程是否被kill掉, 如果用kill杀死的则等当前任务执行完后再平滑退出
+        //Проверяем, убит ли процесс. Если он убит, ждем завершения текущей задачи, прежде чем плавно выйти.
         if (extension_loaded('pcntl')) {
             $this->listenForSignals();
         }
 
-        //需要休眠的任务, 无数据的任务会休眠或等待一段时间再跑
+        //Задачи, которым необходимо заснуть, задачи без данных будут заснуть или некоторое время ждать перед запуском
         $sleepTasks = [];
         while (true) {
             $hasData = false;
@@ -39,7 +39,7 @@ class ConsumerServer
                 $consumerMessage = new $consumerMessageClass();
                 $queueName = $consumerMessage->getQueue();
 
-                //无数据的任务会休眠或等待一段时间再跑
+                //Задачи без данных будут находиться в спящем режиме или некоторое время ждать перед повторным запуском.
                 if (isset($sleepTasks[$queueName]) && time() - $sleepTasks[$queueName] < $this->sleep) {
                     continue;
                 }
@@ -52,16 +52,16 @@ class ConsumerServer
                         $hasData = true;
                         $sleepTasks[$queueName] = null;
                     } else {
-                        //任务跑完的话, 等一段时间再跑
+                        //Если задача выполнена, подождите некоторое время, прежде чем запускать ее снова.
                         $sleepTasks[$queueName] = time();
                     }
                 }
 
-                //退出队列如果符合条件的话, 内存超出/手动停止/进程杀死
+                //Выйти из очереди, если выполнены условия, превышен объем памяти/ручная остановка/процесс завершен
                 $this->exitQueueIfNecessary($queueName);
             }
 
-            //全都没有可执行的任务的话则休眠$sleep秒
+            //Если нет исполняемых задач, перейти в спящий режим на $sleep секунд
             if (!$hasData) {
                 sleep($this->sleep);
             }
@@ -70,18 +70,18 @@ class ConsumerServer
 
 
     /**
-     * 监听进程信号量, 如果用kill杀死的则等当前任务执行完后再平滑退出
+     * Следите за семафором процесса. Если процесс завершен kill, он плавно завершится после завершения текущей задачи.
      */
     protected function listenForSignals()
     {
         pcntl_async_signals(true);
 
-        //kill进程会进入
+        //Процесс уничтожения войдет
         pcntl_signal(SIGTERM, function () {
             $this->shouldQuit = true;
         });
 
-        //ctrl + c 中断进程会进入
+        //ctrl + c прерывает процесс и входит
         pcntl_signal(SIGINT, function () {
             $this->shouldQuit = true;
         });
@@ -89,22 +89,22 @@ class ConsumerServer
 
 
     /**
-     * //退出队列如果符合条件的话, 内存超出/手动停止/进程杀死
+     * Выйти из очереди, если выполнены условия, превышен объем памяти/ручная остановка/процесс завершен
      *
      * @param string $queueName
      */
     protected function exitQueueIfNecessary(string $queueName): void
     {
-        //如果用kill杀死的则等当前任务执行完后再平滑退出
+        // Если вы убьете его с помощью kill, он плавно выйдет после завершения текущей задачи.
         if ($this->shouldQuit) {
-            $this->logInfo("Amqp process terminated: {$queueName}");
+            $this->logInfo("Amqp process terminated: $queueName");
             exit(0);
         }
 
-        //当前使用内存大于指定内存后重启
+        // Перезапустить после того, как текущее использование памяти превысит указанный объем памяти
         $memory = round(memory_get_usage(true) / 1024 / 1024, 2);
         if ($memory >= $this->maxMemory) {
-            $this->logInfo("Amqp {$queueName} current memory: {$memory} MB exceeds {$this->maxMemory}MB terminated");
+            $this->logInfo("Amqp $queueName current memory: $memory MB exceeds {$this->maxMemory}MB terminated");
             exit(0);
         }
     }

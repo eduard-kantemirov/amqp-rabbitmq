@@ -5,15 +5,15 @@ namespace Xbyter\Amqp\Enum;
 
 class ConsumeResultEnum
 {
-    /** @var string 确认消息 */
+    /** @var string Подтверждающее сообщение */
     public const ACK = 'ack';
 
-    /** @var string 拒绝消息(跟reject功能重复，nack多了个批量的参数，暂时无需批量) */
+    /** @var string сообщение об отклонении (то же, что и у функции reject, nack имеет дополнительный параметр batch, на данный момент batch не нужен) */
     //public const NACK = 'nack';
 
-    /** @var string 拒绝消息并重新入列 */
+    /** @var string отклонить сообщение и повторно поставить его в очередь */
     public const REJECT_REQUEUE = 'reject_requeue';
 
-    /** @var string 拒绝并删除消息 */
+    /** @var string отклонить и удалить сообщение */
     public const REJECT_DROP = 'reject_drop';
 }

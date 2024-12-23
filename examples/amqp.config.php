@@ -35,7 +35,7 @@ return [
             ],
         ],
     ],
-    //用于启动消费
+    //Чтобы начать потребление
     'consumers'   => [
         \Xbyter\Amqp\Examples\DefaultConn\Consumers\DemoConsumer::class,
     ],

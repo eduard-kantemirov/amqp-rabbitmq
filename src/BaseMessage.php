@@ -7,16 +7,16 @@ use Xbyter\Amqp\Packer\SerializablePacker;
 
 abstract class BaseMessage implements MessageInterface
 {
-    /** @var string 所属连接 */
+    /** @var string Связь */
     protected string $conn = 'default';
 
 
-    /** @var string 使用哪个序列化工具 */
+    /** @var string Какой сериализатор использовать */
     protected string $packer = SerializablePacker::class;
 
 
     /**
-     * 获取连接器
+     * Получить подключение
      * @return string
      */
     /**

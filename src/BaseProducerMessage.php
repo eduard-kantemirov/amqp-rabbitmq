@@ -7,10 +7,10 @@ use Xbyter\Amqp\Interfaces\ProducerMessageInterface;
 
 abstract class BaseProducerMessage extends BaseMessage implements ProducerMessageInterface
 {
-    /** @var string 所属交换机 */
+    /** @var string Выключатель */
     public const EXCHANGE = '';
 
-    /** @var string 路由键 */
+    /** @var string Ключ маршрутизации */
     public const ROUTING_KEY = '';
 
     protected array $data = [];
@@ -27,7 +27,7 @@ abstract class BaseProducerMessage extends BaseMessage implements ProducerMessag
     }
 
     /**
-     * 获得原始数据
+     * Получить сериализационные данные
      * @return array
      */
     public function getData(): array
@@ -37,7 +37,7 @@ abstract class BaseProducerMessage extends BaseMessage implements ProducerMessag
 
 
     /**
-     * 获取序列化之后的请求体
+     * Получить боди
      * @return string
      */
     public function getBody(): string
